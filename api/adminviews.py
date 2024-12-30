@@ -32,38 +32,6 @@ def adminpage(request):
     # Your admin page view logic
     return render(request, 'adminpage.html')
 
-
-
-# def adminloginpage(request):
-#     if request.method == 'POST':
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-
-#         # Correct email and password for admin login
-#         if email == "admin@gmail.com" and password == "admin":
-#             # Clear any 'next' parameter in the URL
-#             # Redirect to the admin page without any 'next' parameter
-#             return redirect('adminpage')  # This ensures clean redirection to /adminpage/
-        
-#         else:
-#             # Return an error if the login fails
-#             return render(request, 'adminloginpage.html', {'error': 'Invalid email or password'})
-    
-#     return render(request, 'adminloginpage.html')
-
-
-
-# # def adminpage(request):
-# #     return render(request, 'adminpage.html')
-
-# from django.contrib.auth.decorators import login_required
-
-# @login_required(login_url='adminloginpage')
-# def adminpage(request):
-#     # Your admin page view logic
-#     return render(request, 'adminpage.html')
-
-
 def viewpatient(request):
     patients_list = Patient.objects.all()
 
@@ -124,7 +92,7 @@ def signupdoctor(request):
             profile_picture=profile_picture_data   # Save the binary image data
         )
 
-        return redirect('adminpage') 
+        return redirect('viewdoctor') 
     return render(request,'signupdoctor.html')
 
 
