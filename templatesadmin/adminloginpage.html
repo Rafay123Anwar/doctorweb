@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescripto</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- <link rel="icon" href="{% static 'icon.png' %}">  -->
+
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-centre">
+        <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+        </div>
+    </div>
+    <section class="signup-page">
+        <div class="signup">
+            <h1>Login</h1>
+            <p>Admin, please log in to manage and view all system details.</p>
+    
+            <form method="POST" action="{% url 'adminloginpage' %}">  <!-- Add method="POST" -->
+                {% csrf_token %}
+                <label for="email">Email:</label><br>
+                <input type="email" name="email"><br><br>
+    
+                <label for="password">Password:</label><br>
+                <input type="password" name="password"><br><br>
+    
+                <button type="submit" style="cursor: pointer;">Login</button>
+                <div>
+                    {% if error %}
+                        <p style="color: red; text-align: center;">{{ error }}</p>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+</body>
+</html>

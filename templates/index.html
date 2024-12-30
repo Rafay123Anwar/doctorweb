@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="{% static 'icon.png' %}">
+</head>
+
+<body>
+    <section class="navbar">
+        <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+        
+        <div class="navbaritem"><a href="{% url 'home' %}">Home</a></div>
+        <!-- <div class="navbaritem"><a href="">All Doctors</a></div> -->
+        <div class="navbaritem"><a href="{% url 'about' %}">About</a></div>
+        <div class="navbaritem"><a href="{% url 'contact' %}">Contact</a></div>
+        <div class="navbaritem"><button><a href="{% url 'doctorlogin' %}">Doctor Login</a></button></div>
+        <!-- <div class="navbaritem profileimg"><a href="{% url 'loginpage' %}"><img src="{%static 'profile.png' %}" alt=""></a></div> -->
+        <div class="navbaritem profileimg">
+            <div class="dropdown" style="position: relative; display: inline-block;">
+                <a href="#" id="dropdownToggle" style="text-decoration: none;">
+                    <img src="{% static 'profile.png' %}" alt="" 
+                         style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+                </a>
+            <div class="dropdown-content" id="dropdownMenu" 
+                style="display: none; position: absolute; background-color: white; min-width: 120px; 
+                       box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; text-align: left;">
+               {% if request.session.patient_id %}
+                   <a href="{% url 'patientprofile' patient_id=request.session.patient_id %}" 
+                      style="display: block; padding: 8px 12px; text-decoration: none; color: black;">Profile</a>
+               <a href="{% url 'logout' %}" 
+               style="display: block; padding: 8px 12px; text-decoration: none; color: black;">Logout</a>
+               {% else %}
+                   <a href="{% url 'loginpage' %}" 
+                      style="display: block; padding: 8px 12px; text-decoration: none; color: black;">Login</a>
+               {% endif %}
+           </div>
+            </div>
+        </div>
+        
+        <script>
+            // JavaScript to toggle dropdown visibility
+            document.getElementById('dropdownToggle').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+                    dropdownMenu.style.display = 'block'; // Show dropdown
+                } else {
+                    dropdownMenu.style.display = 'none'; // Hide dropdown
+                }
+            });
+        
+            // Close dropdown if clicking outside of it
+            document.addEventListener('click', function (event) {
+                const dropdown = document.getElementById('dropdownMenu');
+                const toggle = document.getElementById('dropdownToggle');
+                if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        </script>
+        
+    </section>
+
+    <section class="book-appointment">
+        <div class="book-appointment-text">
+            <div class="book-text height-book">Book Appointment With Trusted Doctors</div>
+            <div class="book-text div2-book">
+                <div class="threeimg"><img src="{% static 'three-people.png' %}" alt=""></div>
+                <div class="threeimg-text">Simply browse through our extensive list of trusted doctors,
+                    schedule your appointment hassle-free.
+                </div>
+            </div>
+            <div class="book-text div3-book">
+                <a href="{% url 'loginpage' %}">Book Appointment</a>
+            </div>
+        </div>
+        <div class="book-appointment-image"><img src="{% static 'manydoctor.png' %}" alt=""></div>
+    </section>
+
+    <section class="book-appointment">
+        <div class="book-appointment-text">
+            <div class="book-text height-book">Book Appointment With 100+ Trusted Doctors</div>
+            <div class="book-text div3-book">
+                <a href="{% url 'signup' %}">Create Account</a>
+            </div>
+        </div>
+        <div class="book-appointment-image"><img src="{% static 'lady.png' %}" alt=""></div>
+    </section>
+
+    <section class="footer">
+        <div class="footer-1">
+            <div class="footer-1div">
+                <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+                <br><br>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.
+            </div>
+            <div class="footer-1div">
+                <h2>COMPANY</h2>
+                <ul>
+                    <li>Home</li>
+                    <li>About us</li>
+                    <li>Delivery</li>
+                    <li>Privacy policy</li>
+                </ul>
+            </div>
+            <div class="footer-1div">
+                <h2>GET IN TOUCH</h2>
+                <ul>
+                    <li>+0-000-000-000</li>
+                    <li>greatstackdev@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-2">
+            <div class="footer-2-text">Copyright 2024 @ Greatstack.dev - All Right Reserved.</div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+

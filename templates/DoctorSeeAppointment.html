@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="icon.png">
+
+</head>
+
+<body>
+    <section class="navbar">
+        <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+        <div class="navbaritem profileimg">
+            <div class="dropdown" style="position: relative; display: inline-block;">
+                <a href="#" id="dropdownToggle" style="text-decoration: none;">
+                    <img src="{% static 'profile.png' %}" alt="" 
+                         style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+                </a>
+                <div class="dropdown-content" id="dropdownMenu" 
+                    style="display: none; position: absolute; background-color: white; min-width: 120px; 
+                           box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; text-align: left;">
+                           <a href="{% url 'logout' %}" 
+                   style="display: block; padding: 8px 12px; text-decoration: none; color: black;">Logout</a>
+               </div>
+            </div>
+        </div>
+        
+        <script>
+            // JavaScript to toggle dropdown visibility
+            document.getElementById('dropdownToggle').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+                    dropdownMenu.style.display = 'block'; // Show dropdown
+                } else {
+                    dropdownMenu.style.display = 'none'; // Hide dropdown
+                }
+            });
+        
+            // Close dropdown if clicking outside of it
+            document.addEventListener('click', function (event) {
+                const dropdown = document.getElementById('dropdownMenu');
+                const toggle = document.getElementById('dropdownToggle');
+                if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        </script>
+    </section>
+
+    <section class="dashboard">
+        <div class="dashboard-content">
+            <div class="dashboard-button" >
+                {% if doctor.doctor_id %}
+                    <a href="{% url 'doctorprofile' doctor_id=doctor.doctor_id %}">Profile</a>
+                {% else %}
+                    <p style="font-size: 12px;">Doctor ID is missing.</p>
+                {% endif %}
+                <a class="active-div" href="{% url 'DoctorSeeAppointment' %}" >See Appointment</a>
+            </div>
+    
+            <div class="dashboard-form main-appointment" style="display: flex; flex-direction: column; gap: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 8px;">
+             {% comment %} {% for appointment in appointments %} {% endcomment %}
+             {% for appointment in appointments_with_images %}
+                {% comment %} {% for appointment in appointments_with_images %} {% endcomment %}
+                    <div class="see-appointment" style="background-color: #fff; padding: 10px; min-width: 600px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 5px; display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap;">
+                        <!-- Patient Image -->
+                        <div class="see-appointment-details" style="flex: 0 1 50px; display: flex; justify-content:space-evenly; align-items: center; margin-right: 5px;">
+                            <strong style="font-size: 12px;"></strong>
+                            {% if appointment.appointment.patient.profile_picture %}
+                            <!-- <img src="data:image/jpeg;base64,{{ image_base64 }}" width="100" height="100" />     -->
+                            <img src="data:image/jpeg;base64,{{ appointment.image_base64 }}" alt="{{ appointment.appointment.patient.full_name }}'s profile picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                            {% else %}
+                                <p style="font-size: 12px;">No image available</p>
+                            {% endif %}
+                        </div>
+    
+                        <!-- Patient Details -->
+                        <div class="see-appointment-details" style="flex: 1; min-width: 150px; font-size: 12px;">
+                            <strong>Patient Name:</strong> {{ appointment.appointment.patient.full_name }}
+                        </div>
+                        <div class="see-appointment-details" style="flex: 1; min-width: 20px; font-size: 12px;">
+                            <strong>Patient ID:</strong> {{ appointment.appointment.patient.patient_id }}
+                        </div>
+                        <div class="see-appointment-details" style="flex: 1; min-width: 50px; font-size: 12px;">
+                            <strong>Contact:</strong> {{ appointment.appointment.patient.contact_number }}
+                        </div>
+                        <!-- <div class="see-appointment-details" style="flex: 1; min-width: 0px; font-size: 12px;">
+                            <strong>Time:</strong> {{ appointment.appointment_date.time }}
+                        </div> -->
+                        <div class="see-appointment-details" style="flex: 1; min-width: 120px; font-size: 12px;">
+                            <strong>Date:</strong> {{ appointment.appointment.appointment_date.date }}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="see-appointment" style="background-color: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 12px;">
+                        No appointments found for this doctor.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
+    
+
+    <section class="footer book-appointment-footer">
+        <div class="footer-1">
+            <div class="footer-1div">
+                <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+                <br><br>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.
+            </div>
+            <div class="footer-1div">
+                <h2>COMPANY</h2>
+                <ul>
+                    <li>Home</li>
+                    <li>About us</li>
+                    <li>Delivery</li>
+                    <li>Privacy policy</li>
+                </ul>
+            </div>
+            <div class="footer-1div">
+                <h2>GET IN TOUCH</h2>
+                <ul>
+                    <li>+0-000-000-000</li>
+                    <li>greatstackdev@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-2">
+            <div class="footer-2-text">Copyright 2024 @ Greatstack.dev - All Right Reserved.</div>
+        </div>
+    </section>
+
+</body>
+
+</html>

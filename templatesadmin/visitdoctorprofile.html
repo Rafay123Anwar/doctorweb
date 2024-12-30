@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="icon.png">
+
+</head>
+
+<body>
+    <section style="display: flex; align-items: center; justify-content: center;">
+        <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+    </section>
+
+    <section class="dashboard">
+        {% comment %} <div class="dashboard-content"> {% endcomment %}
+            <div class="dashboard-content">
+                <div class="dashboard-button">
+                    <!-- Check if doctor_id exists and generate Profile link -->
+                    {% if doctor.doctor_id %}
+                        <a class="active-div" href="{% url 'visit_profile_doctor' doctor_id=doctor.doctor_id %}">Profile</a>
+                    {% else %}
+                        <p style="font-size: 12px;">Doctor ID is missing.</p>
+                    {% endif %}
+            
+                    <!-- Always generate the 'See Appointment' link -->
+                    {% if doctor.doctor_id %}
+                        <a href="{% url 'visitDoctorSeeAppointment' doctor_id=doctor.doctor_id %}">See Appointment</a>
+                    {% else %}
+                        <p style="font-size: 12px;">Doctor ID is missing.</p>
+                    {% endif %}
+                </div>
+                {% comment %} </div> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+            
+            <div class="dashboard-form profile-form">
+                {% comment %} <div class="profile-content profile-content-img "><img src="{% static 'lady.png' %}" alt=""></div> {% endcomment %}
+                <div class="profile-content profile-content-img">
+                {% if image_base64 %}
+                <img src="data:image/jpeg;base64,{{ image_base64 }}" width="100" height="100" />
+                {% else %}
+                <p>No profile picture available.</p>
+                {% endif %}
+            </div>
+                <div class="profile-content"><p>Name : {{doctor.full_name}} </p></div>
+                <div class="profile-content"><p>Contact : {{doctor.contact_number}} </p></div>
+                <div class="profile-content"><p>Address : {{doctor.address}} </p></div>
+                <div class="profile-content"><p>Gender : {{doctor.gender}}</p></div>
+                <div class="profile-content"><p>Date of Birth : {{doctor.dob }} </p></div>
+                <div class="profile-content"><p>joining_date : {{doctor.joining_date }} </p></div>
+                <div class="profile-content"><p>specialization : {{doctor.specialization }} </p></div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="footer book-appointment-footer">
+        <div class="footer-1">
+            <div class="footer-1div">
+                <img src="https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg" alt="">
+                <br><br>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.
+            </div>
+            <div class="footer-1div">
+                <h2>COMPANY</h2>
+                <ul>
+                    <li>Home</li>
+                    <li>About us</li>
+                    <li>Delivery</li>
+                    <li>Privacy policy</li>
+                </ul>
+            </div>
+            <div class="footer-1div">
+                <h2>GET IN TOUCH</h2>
+                <ul>
+                    <li>+0-000-000-000</li>
+                    <li>greatstackdev@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-2">
+            <div class="footer-2-text">Copyright 2024 @ Greatstack.dev - All Right Reserved.</div>
+        </div>
+    </section>
+
+</body>
+
+</html>

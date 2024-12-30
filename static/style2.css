@@ -1,0 +1,154 @@
+.viewbutton {
+    background-color: rgb(255, 255, 255);
+    border-style: none;
+    /* border: 0.5px  rgb(7, 14, 78); */
+    border-radius: 40px;
+    padding: 0.5vh 2vh 0.5vh 1.5vh;
+}
+
+.viewbutton a {
+    border-bottom: 1px solid;
+    font-family: cursive;
+    font-weight: 600;
+    color: rgb(72, 87, 221);
+}
+
+.viewbutton:hover {
+    box-shadow: 0px 0px 1vh;
+    color: rgb(72, 87, 221);
+
+    a {
+        border-top: 1px solid;
+        border-bottom: none;
+    }
+}
+
+.admin-video {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    position: relative;
+    top: 10vh;
+}
+
+.admin-video-div video {
+    height: 30vh;
+    width: 30vh;
+}
+
+.admin-footer {
+    position: relative;
+    top: 18vh;
+}
+
+.view-patient-main {
+    /* background-color: rgb(236, 145, 145); */
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    flex-direction: row;
+    column-gap: 5vh;
+    row-gap: 5vh;
+    padding: 10vh;
+    padding-right: 2vh;
+    padding-left: 6vh;
+}
+
+.card {
+    width: 18.2vh;
+    padding: 1vh;
+    border-radius: 1vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: rgb(72, 87, 221,0.2); */
+    /* row-gap: 5vh; */
+}
+
+.card-pic {
+    height: 20vh;
+    background-color: #c0bebe;
+
+    line-height: 0vh;
+    border-radius: 1vh;
+}
+
+.card-para,
+hr {
+    width: 100%;
+    margin-top: 0;
+    /* font-size: 0.97cqw; */
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #707070;
+    line-height: 2vh;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.card:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgb(72, 87, 221); */
+    box-shadow: 0px 0px 3vh rgb(72, 87, 221);
+
+    .card-para {
+        color: rgb(87, 78, 78);
+        text-align: center;
+    }
+
+    .card-pic {
+        background-color: rgb(72, 87, 221);
+    }
+}
+
+.view-patient-footer {
+    position: relative;
+    top: 0vh;
+}
+
+.add {
+    display: flex;
+    justify-content: center;
+}
+
+.add-doctor button {
+    padding: 1vh 2vh 1vh 2vh;
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(72, 87, 221);
+    border-style: none;
+    background-color: white;
+    border-radius: 10px;
+    height: 10vh;
+    box-shadow:0vh 0vh 1vh ;
+}
+
+.add-doctor button:hover {
+    box-shadow: 0px 0px 1vh;
+    color: rgb(72, 87, 221);
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow:0vh 0vh 3vh ;
+}
+.add-doctor button{
+    position: relative;
+    bottom: 4vh;
+}
+.delete{
+    position: relative;
+    left: 5.5vh;
+    margin-top: 0.5vh;
+    background-color: rgba(0, 0, 0, 0.0);
+    color: rgb(116, 118, 133);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-style: none;
+    font-weight:100;
+    padding: 0.5vh;
+    border-radius: 5px;
+    box-shadow: 0vh 0vh 1vh rgb(72, 87, 221);
+    /* border-style: 1px solid; */
+}
+.delete:hover{
+    box-shadow: 0vh 0vh 1vh red;
+}
