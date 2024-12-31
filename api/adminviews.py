@@ -7,9 +7,6 @@ from django.shortcuts import get_object_or_404, redirect
 def viewdoctor(request):
     return render(request,'viewdoctor.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-
 def adminloginpage(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -17,20 +14,25 @@ def adminloginpage(request):
 
         # Correct email and password for admin login
         if email == "admin@gmail.com" and password == "admin":
-            # Get the 'next' parameter from the URL query string, if it exists
-            next_url = request.GET.get('next', '/adminpage/')
-            return redirect(next_url)  # Redirect to the 'next' URL or default to '/adminpage/'
-
+            # Set a session variable for the logged-in admin
+            request.session['admin_id'] = 1  # Example admin ID
+            return redirect('adminpage')  # Redirect to the admin page
         else:
             # Return an error if the login fails
             return render(request, 'adminloginpage.html', {'error': 'Invalid email or password'})
-    
+
     return render(request, 'adminloginpage.html')
 
-# @login_required(login_url='adminloginpage')  # Ensure only logged-in users can access this page
+
 def adminpage(request):
-    # Your admin page view logic
-    return render(request, 'adminpage.html')
+    # Check if the admin is logged in
+    admin_id = request.session.get('admin_id')
+    if admin_id:
+        # If admin is logged in, allow access
+        return render(request, 'adminpage.html')
+    else:
+        # If not logged in, redirect to the admin login page
+        return redirect('adminloginpage')
 
 def viewpatient(request):
     patients_list = Patient.objects.all()
@@ -111,10 +113,7 @@ def viewdoctor(request):
 
     return render(request, 'viewdoctor.html', {'doctors': doctor_list})
 
-    
-    
-    
-from django.shortcuts import get_object_or_404, redirect
+
 from django.contrib import messages
 
 def delete_doctor(request, doctor_id):
@@ -179,12 +178,7 @@ def visitDoctorSeeAppointment(request, doctor_id):
 
 
 
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-
 
 def adminlogout_view(request):
-    # Log out the user
-    logout(request)
-    # Redirect to the login page
+    request.session.flush() 
     return redirect('adminloginpage')
