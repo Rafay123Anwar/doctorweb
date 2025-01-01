@@ -35,16 +35,20 @@ def adminpage(request):
         return redirect('adminloginpage')
 
 def viewpatient(request):
-    patients_list = Patient.objects.all()
+    admin_id = request.session.get('admin_id')
+    if admin_id:    
+        patients_list = Patient.objects.all()
 
-    for patient in patients_list:
-        # print(patient.patient_id)
-        if patient.profile_picture:  # Check if a profile picture exists
+        for patient in patients_list:
+            # print(patient.patient_id)
+            if patient.profile_picture:  # Check if a profile picture exists
             # Directly base64 encode the binary data
-            patient.image_base64 = base64.b64encode(patient.profile_picture).decode('utf-8')
+                patient.image_base64 = base64.b64encode(patient.profile_picture).decode('utf-8')
             # print(f"Encoded image for patient {patient.patient_id}: {patient.image_base64[:100]}...") 
-        else:
-            patient.image_base64 = None  # Handle missing images gracefully
+            else:
+                patient.image_base64 = None  # Handle missing images gracefully
+    else:
+        return redirect('adminloginpage')
 
     return render(request, 'viewpatient.html', {'patients': patients_list})
 
@@ -100,16 +104,20 @@ def signupdoctor(request):
 
 
 def viewdoctor(request):
-    doctor_list = Doctor.objects.all()
+    admin_id = request.session.get('admin_id')
+    if admin_id:    
+        doctor_list = Doctor.objects.all()
 
-    for doctor in doctor_list:
-        # print(doctor.doctor_id)
-        if doctor.profile_picture:  # Check if a profile picture exists
-            # Directly base64 encode the binary data
-            doctor.image_base64 = base64.b64encode(doctor.profile_picture).decode('utf-8')
-            # print(f"Encoded image for patient {doctor.doctor_id}: {doctor.image_base64[:100]}...") 
-        else:
-            doctor.image_base64 = None  
+        for doctor in doctor_list:
+            # print(doctor.doctor_id)
+            if doctor.profile_picture:  # Check if a profile picture exists
+                # Directly base64 encode the binary data
+                doctor.image_base64 = base64.b64encode(doctor.profile_picture).decode('utf-8')
+                # print(f"Encoded image for patient {doctor.doctor_id}: {doctor.image_base64[:100]}...") 
+            else:
+                doctor.image_base64 = None  
+    else:
+        return redirect('adminloginpage')
 
     return render(request, 'viewdoctor.html', {'doctors': doctor_list})
 
