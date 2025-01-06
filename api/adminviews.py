@@ -4,9 +4,6 @@ from .models import Patient,Doctor,Appointment
 import base64
 from django.shortcuts import get_object_or_404, redirect
 
-# def viewdoctor(request):
-#     return render(request,'viewdoctor.html')
-
 def adminloginpage(request):
     if request.method == 'POST':
         email = request.POST.get('email')

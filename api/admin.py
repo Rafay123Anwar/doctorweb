@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Patient,Doctor,Staff,Appointment
+from .models import Patient,Doctor,Appointment
 import base64
 
 @admin.register(Patient)
@@ -42,24 +42,6 @@ class DoctorAdmin(admin.ModelAdmin):
         return "No Image"
 
     profile_picture_display.short_description = 'Profile Picture'
-
-
-@admin.register(Staff)
-class StaffAdmin(admin.ModelAdmin):
-    list_display = ('get_managed_patients', 'get_managed_doctors')
-
-    def get_managed_patients(self, obj):
-        return ", ".join([patient.full_name for patient in obj.managed_patients.all()])
-    get_managed_patients.short_description = 'Managed Patients'
-
-    def get_managed_doctors(self, obj):
-        return ", ".join([doctor.full_name for doctor in obj.managed_doctors.all()])
-    get_managed_doctors.short_description = 'Managed Doctors'
-
-    def has_add_permission(self, request):
-        # Allow adding only if no staff exists
-        return not Staff.objects.exists()
-
 
 @admin.register(Appointment)    
 class AppointmentAdmin(admin.ModelAdmin):

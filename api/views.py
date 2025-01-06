@@ -1,12 +1,12 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.hashers import make_password, check_password
 from .models import Patient,Doctor,Appointment
-from django.utils.dateparse import parse_datetime
 import base64
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth import logout
+from datetime import datetime
+
 
 
 def convert_image_to_base64(image_data):
@@ -65,33 +65,6 @@ def doctorprofile(request, doctor_id):
 
 def contact(request):
     return render(request, 'contact.html')
-
-
-# def DoctorSeeAppointment(request):
-#     doctor_id = request.session.get('doctor_id')
-#     print(doctor_id)
-#     if doctor_id:
-#         try:
-#             # Query using patient_id instead of id
-#             doctor = Doctor.objects.get(doctor_id=doctor_id)
-
-#             # Convert profile picture to base64 if needed
-#             image_base64 = None
-#             if doctor.profile_picture:
-#                 image_base64 = convert_image_to_base64(doctor.profile_picture)
-
-#             context = {
-#                 'doctor': doctor,
-#                 'image_base64': image_base64
-#             }
-#             return render(request, 'DoctorSeeAppointment.html', context)
-#         except Patient.DoesNotExist:
-#             return redirect('doctorlogin')  # Redirect if patient does not exist
-#     else:
-#         return redirect('doctorlogin')
-
-
-import base64
 
 def convert_image_base64(image):
     if image:
@@ -251,77 +224,6 @@ def patientprofile(request, patient_id):  # Accept patient_id as a parameter
         # If no patient ID is in the session, redirect to login
         return redirect('loginpage')
 
-# def loginpage(request):
-#     # If the patient is already logged in, redirect to the appointment page
-#     if request.session.get('patient_id'):
-#         return redirect('BookAppointment')
-
-#     if request.method == 'POST':
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-
-#         try:
-#             patient = Patient.objects.get(email=email)
-#             if check_password(password, patient.password):
-#                 # Store patient ID in session after successful login
-#                 request.session['patient_id'] = patient.patient_id
-
-#                 # Convert profile picture to base64 if available
-#                 image_base64 = None
-#                 if patient.profile_picture:
-#                     image_base64 = convert_image_to_base64(patient.profile_picture)
-
-#                 # Redirect to patient profile after login
-#                 return redirect('patientprofile', patient_id=patient.patient_id)
-#             else:
-#                 return render(request, 'loginpage.html', {'error': 'Invalid password'})
-#         except Patient.DoesNotExist:
-#             return render(request, 'loginpage.html', {'error': 'Email not registered'})
-
-#     return render(request, 'loginpage.html')
-
-
-
-
-# def patientprofile(request):
-#     # Retrieve patient ID from session
-#     patient_id = request.session.get('patient_id')
-    
-#     if patient_id:  # Check if patient_id exists in the session
-#         try:
-#             # Fetch the patient record using patient_id
-#             patient = Patient.objects.get(patient_id=patient_id)
-            
-#             # Convert profile picture to base64 if it exists
-#             image_base64 = None
-#             if patient.profile_picture:
-#                 image_base64 = convert_image_to_base64(patient.profile_picture)
-            
-#             # Prepare the context for rendering the profile
-#             context = {
-#                 'patient': patient,
-#                 'image_base64': image_base64,
-#             }
-#             return render(request, 'patientprofile.html', context)
-#         except Patient.DoesNotExist:
-#             # If the patient ID is invalid or not found, redirect to login
-#             return redirect('loginpage')
-#     else:
-#         # If no patient ID is in the session, redirect to login
-#         return redirect('loginpage')
-
-
-
-
-from django.contrib import messages
-from django.utils import timezone
-from datetime import datetime
-
-from datetime import datetime
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Patient, Doctor, Appointment
-
 def BookAppointment(request):
     # Retrieve patient_id from session
     patient_id = request.session.get('patient_id')
@@ -416,9 +318,6 @@ def BookAppointment(request):
 
 
 
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 def logout_view(request):
     # Clear any session data if necessary

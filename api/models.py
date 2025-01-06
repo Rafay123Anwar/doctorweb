@@ -34,19 +34,6 @@ class Doctor(models.Model):
     def __str__(self):
         return self.full_name
     
-    
-class Staff(models.Model):
-    managed_patients = models.ManyToManyField(Patient, related_name='managed_by_staff', blank=True)
-    managed_doctors = models.ManyToManyField(Doctor, related_name='managed_by_staff', blank=True)
-
-    def save(self, *args, **kwargs):
-        if Staff.objects.exists() and not self.pk:
-            raise ValidationError("You can only have one staff instance.")
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return "Admin Staff"
-    
 class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # The doctor for the appointment
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)  # The patient booking the appointment
