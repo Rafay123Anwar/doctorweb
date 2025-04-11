@@ -92,9 +92,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'postgres.bqhxsxhzdgaiqzbvhjxf',
-        'PASSWORD': 'vi23wiIBemFot2JW',
-        'HOST': 'aws-0-us-west-1.pooler.supabase.com',  # Or use an IP address if DNS resolution fails
+        'USER': 'postgres.zmvthrqpjyoqhqxttutt',
+        'PASSWORD': 'Doctor@1234',
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',  # Or use an IP address if DNS resolution fails
         'PORT': '6543',
     }
 }
